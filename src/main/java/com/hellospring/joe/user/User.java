@@ -3,6 +3,7 @@ package com.hellospring.joe.user;
 import java.time.LocalDate;
 import java.time.Period;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,8 +13,10 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
+
+@JsonPropertyOrder({"id", "name", "email", "dob", "age"})
 @Entity
-@Table(name = "'user'")
+@Table(name = "\"user\"")
 public class User {
     @Id
     @SequenceGenerator(
@@ -30,41 +33,60 @@ public class User {
         private String Name;
         private String Email;
         private LocalDate dob;
+
         @Transient
         private Integer age;
 
-
         public User() {
         }
-        
+
         public User(Long id, String name, String email, LocalDate dob) {
-            Id = id;
-            Name = name;
-            Email = email;
+            this.Id = id;
+            this.Name = name;
+            this.Email = email;
             this.dob = dob;
-
         }
+
         public User(String name, String email, LocalDate dob) {
-            Name = name;
-            Email = email;
+            this.Name = name;
+            this.Email = email;
             this.dob = dob;
-
         }
+
         public Long getId() {
             return Id;
         }
+
+        public void setId(Long id) {
+            Id = id;
+        }
+
         public String getName() {
             return Name;
         }
+
+        public void setName(String name) {
+            Name = name;
+        }
+
         public String getEmail() {
             return Email;
         }
+
+        public void setEmail(String email) {
+            Email = email;
+        }
+
         public LocalDate getDob() {
             return dob;
         }
 
+        public void setDob(LocalDate dob) {
+            this.dob = dob;
+        }
+
         public Integer getAge() {
-            return Period.between(dob, LocalDate.now()).getYears();
+            return age;
         }
 
         public void setAge(Integer age) {
@@ -73,13 +95,10 @@ public class User {
 
         @Override
         public String toString() {
-            return "User [Id=" + Id + ", Name=" + Name + ", Email=" + Email + ", dob=" + dob + "]";
+            return "User [Id=" + Id + ", Name=" + Name + ", Email=" + Email + ", dob=" + dob + ", age=" + age + "]";
         }
 
 
         
-
-        
-
 
 }

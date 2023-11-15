@@ -1,12 +1,20 @@
  package com.hellospring.joe.user;
- import org.springframework.boot.autoconfigure.SpringBootApplication;
+ import java.util.Optional;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
- @SpringBootApplication
+
+
  @Repository
  public interface UserRepository 
             extends JpaRepository<User,Long> {
+
+              @Query("SELECT u FROM User u WHERE u.Email = ?1" )
+                Optional<User> findUserByEmail(String email);
+ 
 
     
 }
